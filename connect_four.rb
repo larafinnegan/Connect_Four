@@ -16,7 +16,7 @@ class Board
   end
 
   def move_valid?(turn)
-    board[turn-1].any? { |x| x == "-"}
+    board[turn-1].any? {|x| x == "-"}
   end
 
   def make_move(turn, piece)
@@ -41,12 +41,7 @@ class Board
   def display
     puts "\n1|2|3|4|5|6|7\n\n"
     array = board.transpose {|x| x}.reverse
-    puts array[0].join("|")
-    puts array[1].join("|")
-    puts array[2].join("|")
-    puts array[3].join("|")
-    puts array[4].join("|")
-    puts array[5].join("|")
+    (0..5).each {|x| puts array[x].join("|")}
     puts
   end
 
