@@ -40,7 +40,7 @@ class Board
 
   def display
     puts "\n1|2|3|4|5|6|7\n\n"
-    array = board.transpose {|x| x}.reverse
+    array = board.transpose.reverse
     (0..5).each {|x| puts array[x].join("|")}
     puts
   end
