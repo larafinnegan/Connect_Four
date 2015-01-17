@@ -52,13 +52,11 @@ class Board
 
   private
   def check_cols?(input)
-    board.each {|x| return true if x.join.include?(input * 4)}
-    false
+    board.any? {|x| x.join.include?(input * 4)}
   end
 
   def check_rows?(input)
-    board.transpose.each {|x| return true if x.join.include?(input * 4)}
-    false
+    board.transpose.any? {|x| x.join.include?(input * 4)}
   end
 
   def check_diags?(input)
