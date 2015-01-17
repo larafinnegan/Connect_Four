@@ -11,22 +11,26 @@ end
 class Board
 attr_accessor :board
 
-def initialize(board = Array.new(6) {|x| ["-","-","-","-","-","-","-"]})
+def initialize(board = Array.new(7) {|x| ["-","-","-","-","-","-"]})
 @board = board
 end
 
 def move_valid?(turn)
-board.transpose[turn-1].any? { |x| x == "-"}
+board[turn-1].any? { |x| x == "-"}
 end
 
 def make_move(turn, piece)
-column = board.transpose[turn-1].map{|x| x}.reverse!
-col = column.size - 1 - column.index("-")
-board[col][turn-1] = piece
+board[turn-1][board[turn-1].index("-")] = piece
+end
+
+def possible_moves
+moves = []
+board.each_with_index {|x,y| moves << [y, x.index("-")]}
+moves
 end
 
 def win?(input)
-check_rows?(input) || check_columns?(input) || check_diags?(input) || check_other_diags?(input)
+check_rows?(input) || check_cols?(input) || check_diags?(input) || check_other_diags?(input)
 end
 
 def tie?
@@ -34,19 +38,19 @@ board.none? {|x| x.include?("-")}
 end
 
 def display
+puts "\n1|2|3|4|5|6|7\n\n"
+array = board.transpose {|x| x}.reverse
+puts array[0].join("|")
+puts array[1].join("|")
+puts array[2].join("|")
+puts array[3].join("|")
+puts array[4].join("|")
+puts array[5].join("|")
 puts
-puts board[0].join("|")
-puts board[1].join("|")
-puts board[2].join("|")
-puts board[3].join("|")
-puts board[4].join("|")
-puts board[5].join("|")
-puts
-puts "1|2|3|4|5|6|7"
 end
 
 private
-def check_rows?(input)
+def check_cols?(input)
 board.each do |x|
 return true if x.join.include?(input * 4)
 end
@@ -61,24 +65,31 @@ false
 end
 
 def check_diags?(input)
-(0..5).map{|i|board[i][i]}.join.include?(input * 4) ||
-(0..5).map{|i|board[i][i+1]}.join.include?(input * 4) ||
-(1..5).map{|i|board[i][i-1]}.join.include?(input * 4) ||
-(2..5).map{|i|board[i][i-2]}.join.include?(input * 4) ||
-(0..4).map{|i|board[i][i+2]}.join.include?(input * 4) ||
-(0..3).map{|i|board[i][i+3]}.join.include?(input * 4)
+(0..6).map{|i|board[i][i]}.join.include?(input * 4) ||
+(0..6).map{|i|board[i][i-1]}.join.include?(input * 4) ||
+(2..6).map{|i|board[i][i-2]}.join.include?(input * 4) ||
+(3..6).map{|i|board[i][i-3]}.join.include?(input * 4) ||
+(0..4).map{|i|board[i][i+1]}.join.include?(input * 4) ||
+(0..3).map{|i|board[i][i+2]}.join.include?(input * 4)
 end
 
 def check_other_diags?(input)
 array = board.map {|x| x.reverse}
-(0..5).map{|i|array[i][i]}.join.include?(input * 4) ||
-(0..5).map{|i|array[i][i+1]}.join.include?(input * 4) ||
-(1..5).map{|i|array[i][i-1]}.join.include?(input * 4) ||
-(2..5).map{|i|array[i][i-2]}.join.include?(input * 4) ||
-(0..4).map{|i|array[i][i+2]}.join.include?(input * 4) ||
-(0..3).map{|i|array[i][i+3]}.join.include?(input * 4)
+(0..6).map{|i|array[i][i]}.join.include?(input * 4) ||
+(0..6).map{|i|array[i][i-1]}.join.include?(input * 4) ||
+(2..6).map{|i|array[i][i-2]}.join.include?(input * 4) ||
+(3..6).map{|i|array[i][i-3]}.join.include?(input * 4) ||
+(0..4).map{|i|array[i][i+1]}.join.include?(input * 4) ||
+(0..3).map{|i|array[i][i+2]}.join.include?(input * 4)
 end
 end
+
+
+class AI
+
+end
+
+
 
 class Game
 
