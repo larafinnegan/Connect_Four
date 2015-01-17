@@ -39,10 +39,10 @@ class Board
   end
 
   def display
-    puts "\n1|2|3|4|5|6|7\n\n"
+    puts (1..7).to_a.join("|")
+	puts
     array = board.transpose.reverse
     (0..5).each {|x| puts array[x].join("|")}
-    puts
   end
 
   private
@@ -103,7 +103,7 @@ class Game
     @player1 = Player.new("Player 1", x_or_o[0])
     @player2 = Player.new("Player 2", x_or_o[1])
     puts "\n\nPlayer 1 is randomly assigned to #{x_or_o[0]}."
-    puts "Therefore, Player 2 is assigned to #{x_or_o[1]}."
+    puts "Therefore, Player 2 is assigned to #{x_or_o[1]}\n\n."
     @players = [@player2, @player1]
   end
 
