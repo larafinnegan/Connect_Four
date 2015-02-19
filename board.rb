@@ -30,7 +30,7 @@ class Board
 
   def display
     puts (1..7).to_a.join("|")
-    board.each {|x| puts board.transpose.reverse[x].join("|")}
+    (board.size-1).times {|x| puts board.transpose.reverse[x].join("|")}
   end
 
   private
